@@ -1,313 +1,1023 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" dir="ltr" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PowerSite | CODE • CONNECT • EMPOWER</title>
+    <meta name="description" content="PowerSite is a premium international digital agency specializing in luxury web design, AI integration, SEO optimization, and high-end digital experiences.">
+    
+    <!-- Tailwind CSS & AlpineJS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <title>PowerSite | Build Powerful Experiences</title>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#030712',
+                        glassBg: 'rgba(17, 24, 39, 0.7)',
+                        glassBorder: 'rgba(255, 255, 255, 0.08)',
+                        neonBlue: '#00f2fe',
+                        neonOrange: '#ff8c00',
+                        accentBlue: '#0052d4',
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'Cairo', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        neonBlueGlow: '0 0 20px rgba(0, 242, 254, 0.15)',
+                        neonOrangeGlow: '0 0 20px rgba(255, 140, 0, 0.15)',
+                        glassShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
+                    }
+                }
+            }
+        }
+    </script>
 
     <style>
-
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
-            font-family:Arial,sans-serif;
+        [x-cloak] { display: none !important; }
+        
+        body {
+            background-color: #030712;
+            color: #f3f4f6;
+            overflow-x: hidden;
         }
 
-        body{
-
-            background:#111;
-            color:white;
-
+        /* Glassmorphism Classes */
+        .glass-panel {
+            background: rgba(10, 15, 30, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
         }
 
-        header{
-
-            display:flex;
-            justify-content:space-between;
-            align-items:center;
-
-            padding:25px 70px;
-
+        .glass-card {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .logo{
-
-            font-size:30px;
-            font-weight:bold;
-
-            color:#00d9ff;
-
+        .glass-card:hover {
+            border-color: rgba(0, 242, 254, 0.4);
+            box-shadow: 0 0 25px rgba(0, 242, 254, 0.2);
+            transform: translateY(-6px);
         }
 
-        nav a{
-
-            color:white;
-            text-decoration:none;
-            margin-left:30px;
-
+        /* Glow Elements */
+        .glow-blue {
+            filter: blur(130px);
+            background: radial-gradient(circle, rgba(0,242,254,0.18) 0%, rgba(0,0,0,0) 70%);
         }
 
-        .hero{
-
-            height:85vh;
-
-            display:flex;
-
-            flex-direction:column;
-
-            justify-content:center;
-
-            align-items:center;
-
-            text-align:center;
-
-            padding:20px;
-
+        .glow-orange {
+            filter: blur(130px);
+            background: radial-gradient(circle, rgba(255,140,0,0.12) 0%, rgba(0,0,0,0) 70%);
         }
 
-        h1{
-
-            font-size:60px;
-            margin-bottom:20px;
-
+        /* Ambient floating animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
         }
 
-        p{
-
-            font-size:22px;
-
-            max-width:700px;
-
-            color:#cfcfcf;
-
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
         }
-
-        button{
-
-            margin-top:40px;
-
-            padding:15px 35px;
-
-            border:none;
-
-            border-radius:50px;
-
-            font-size:18px;
-
-            background:#00d9ff;
-
-            cursor:pointer;
-
+        .animate-pulseGlow {
+            animation: pulseGlow 4s ease-in-out infinite;
         }
-
-        button:hover{
-
-            transform:scale(1.05);
-
-        }
-        .language-screen{
-
-    text-align:center;
-
-    padding:80px 20px;
-
-}
-
-.language-screen h2{
-
-    font-size:42px;
-
-    margin-bottom:20px;
-
-}
-
-.language-screen p{
-
-    color:#cccccc;
-
-    margin-bottom:40px;
-
-}
-
-.languages{
-
-    display:flex;
-
-    justify-content:center;
-
-    gap:20px;
-
-    flex-wrap:wrap;
-
-}
-
-.languages button{
-
-    padding:18px 35px;
-
-    border-radius:50px;
-
-    border:none;
-
-    font-size:18px;
-
-    cursor:pointer;
-
-    transition:.3s;
-
-}
-
-.languages button:hover{
-
-    transform:translateY(-6px);
-
-}
-.about{
-
-padding:90px 30px;
-
-text-align:center;
-
-background:#181818;
-
-}
-
-.about h2{
-
-font-size:42px;
-
-margin-bottom:30px;
-
-color:#00d9ff;
-
-}
-
-.about p{
-
-max-width:850px;
-
-margin:auto;
-
-font-size:20px;
-
-line-height:1.8;
-
-color:#d5d5d5;
-
-}
     </style>
-
 </head>
+<body x-data="agencyApp()" class="relative min-h-screen">
 
-<body>
+    <!-- Ambient Glowing Background Assets -->
+    <div class="fixed top-[-10%] left-[-10%] w-[50%] h-[50%] glow-blue -z-10 pointer-events-none"></div>
+    <div class="fixed bottom-[-10%] right-[-10%] w-[50%] h-[50%] glow-orange -z-10 pointer-events-none"></div>
+    <div class="fixed top-[40%] left-[35%] w-[40%] h-[40%] glow-blue -z-10 pointer-events-none opacity-40"></div>
 
-<header>
+    <!-- AUDIO PLAYER -->
+    <audio id="audioPlayer" class="hidden"></audio>
 
-<div class="logo">
+    <!-- ========================================== -->
+    <!-- 1. LANGUAGE SELECTOR GATEWAY (OVERSCREEN) -->
+    <!-- ========================================== -->
+    <div x-show="showGateway" 
+         x-transition:leave="transition ease-in duration-700 transform"
+         x-transition:leave-start="opacity-100 scale-100"
+         x-transition:leave-end="opacity-0 scale-95"
+         class="fixed inset-0 z-[9999] flex items-center justify-center bg-darkBg px-4">
+        
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(17,24,39,0.8)_0%,rgba(3,7,18,1)_100%)]"></div>
+        
+        <div class="relative max-w-xl w-full text-center p-8 rounded-3xl glass-panel animate-float">
+            <!-- Decorative elements -->
+            <div class="absolute -top-12 left-1/2 -translate-x-1/2 w-24 h-24 bg-gradient-to-tr from-neonBlue to-neonOrange rounded-full blur-xl opacity-50 animate-pulseGlow"></div>
+            
+            <h1 class="text-4xl md:text-5xl font-black tracking-wider bg-gradient-to-r from-neonBlue via-white to-neonOrange bg-clip-text text-transparent mb-2">
+                POWERSITE
+            </h1>
+            <p class="text-xs tracking-[0.3em] text-gray-400 mb-8 font-semibold uppercase">CODE • CONNECT • EMPOWER</p>
+            
+            <p class="text-gray-300 text-sm md:text-base mb-8">Please choose your language / الرجاء اختيار اللغة / Choisissez votre langue</p>
+            
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+                <button @click="selectLang('ar')" class="py-4 px-6 rounded-xl bg-gradient-to-r from-transparent to-white/5 border border-white/10 hover:border-neonBlue hover:shadow-neonBlueGlow transition-all duration-300 group">
+                    <span class="block text-lg font-bold text-white group-hover:text-neonBlue transition-colors">العربية</span>
+                    <span class="text-xs text-gray-500">RTL Layout</span>
+                </button>
+                <button @click="selectLang('en')" class="py-4 px-6 rounded-xl bg-gradient-to-r from-transparent to-white/5 border border-white/10 hover:border-neonBlue hover:shadow-neonBlueGlow transition-all duration-300 group">
+                    <span class="block text-lg font-bold text-white group-hover:text-neonBlue transition-colors">English</span>
+                    <span class="text-xs text-gray-500">Global Edition</span>
+                </button>
+                <button @click="selectLang('fr')" class="py-4 px-6 rounded-xl bg-gradient-to-r from-transparent to-white/5 border border-white/10 hover:border-neonBlue hover:shadow-neonBlueGlow transition-all duration-300 group">
+                    <span class="block text-lg font-bold text-white group-hover:text-neonBlue transition-colors">Français</span>
+                    <span class="text-xs text-gray-500">Édition Premium</span>
+                </button>
+            </div>
+        </div>
+    </div>
 
-PowerSite
+    <!-- ========================================== -->
+    <!-- MAIN INTERFACE -->
+    <!-- ========================================== -->
+    <div x-show="!showGateway" x-cloak class="min-h-screen flex flex-col justify-between" :dir="lang === 'ar' ? 'rtl' : 'ltr'">
+        
+        <!-- HEADER / NAVIGATION -->
+        <header class="sticky top-0 z-[100] w-full transition-all duration-300 border-b border-white/5" 
+                :class="scrolled ? 'glass-panel py-4' : 'bg-transparent py-6'">
+            <div class="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
+                <!-- Brand Identity -->
+                <a href="#" class="flex items-center gap-3 group">
+                    <div class="relative w-10 h-10 rounded-xl bg-gradient-to-tr from-accentBlue to-neonBlue flex items-center justify-center shadow-neonBlueGlow overflow-hidden">
+                        <span class="font-extrabold text-xl text-white">P</span>
+                        <div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-xl font-black tracking-wider text-white">Power<span class="text-neonBlue">Site</span></span>
+                        <span class="text-[8px] tracking-[0.2em] text-neonOrange font-bold">CODE • CONNECT</span>
+                    </div>
+                </a>
 
-</div>
+                <!-- Desktop Menu Options -->
+                <nav class="hidden lg:flex items-center gap-8">
+                    <template x-for="item in menuItems">
+                        <a :href="item.link" class="text-sm font-medium text-gray-300 hover:text-neonBlue transition-colors py-2" x-text="item.label"></a>
+                    </template>
+                </nav>
 
-<nav>
+                <!-- Language Utility and CTAs -->
+                <div class="hidden lg:flex items-center gap-4">
+                    <!-- Audio Control Toggle -->
+                    <button @click="toggleAudio()" class="w-10 h-10 rounded-full bg-white/5 border border-white/10 hover:border-neonBlue flex items-center justify-center transition-all">
+                        <i class="fa-solid text-sm" :class="isAudioPlaying ? 'fa-volume-high text-neonBlue' : 'fa-volume-xmark text-gray-400'"></i>
+                    </button>
 
-<a href="#">Home</a>
+                    <!-- Language Switcher -->
+                    <div class="relative" x-data="{ open: false }">
+                        <button @click="open = !open" class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs text-white">
+                            <i class="fa-solid fa-globe"></i>
+                            <span class="uppercase" x-text="lang"></span>
+                            <i class="fa-solid fa-chevron-down text-[10px]"></i>
+                        </button>
+                        <div x-show="open" @click.away="open = false" class="absolute right-0 mt-2 w-32 rounded-lg bg-darkBg border border-white/10 overflow-hidden shadow-2xl z-[150]">
+                            <button @click="selectLang('ar'); open = false;" class="w-full px-4 py-2 text-xs text-left text-white hover:bg-white/5 flex items-center justify-between">
+                                <span>العربية</span> <span class="text-gray-500">AR</span>
+                            </button>
+                            <button @click="selectLang('en'); open = false;" class="w-full px-4 py-2 text-xs text-left text-white hover:bg-white/5 flex items-center justify-between">
+                                <span>English</span> <span class="text-gray-500">EN</span>
+                            </button>
+                            <button @click="selectLang('fr'); open = false;" class="w-full px-4 py-2 text-xs text-left text-white hover:bg-white/5 flex items-center justify-between">
+                                <span>Français</span> <span class="text-gray-500">FR</span>
+                            </button>
+                        </div>
+                    </div>
 
-<a href="#">Portfolio</a>
+                    <a href="#contact" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-accentBlue to-neonBlue hover:from-neonBlue hover:to-accentBlue text-white text-xs font-semibold shadow-neonBlueGlow hover:shadow-[0_0_25px_rgba(0,242,254,0.4)] transition-all duration-300">
+                        <span x-text="t.getStarted"></span>
+                    </a>
+                </div>
 
-<a href="#">Services</a>
+                <!-- Mobile Menu Button -->
+                <button @click="mobileMenuOpen = !mobileMenuOpen" class="lg:hidden w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center border border-white/10 text-white">
+                    <i class="fa-solid" :class="mobileMenuOpen ? 'fa-xmark' : 'fa-bars'"></i>
+                </button>
+            </div>
 
-<a href="#">Contact</a>
+            <!-- Mobile Dropdown Menu -->
+            <div x-show="mobileMenuOpen" x-transition class="lg:hidden absolute top-full left-0 w-full glass-panel py-6 px-8 flex flex-col gap-4 border-b border-white/10">
+                <template x-for="item in menuItems">
+                    <a :href="item.link" @click="mobileMenuOpen = false" class="text-base font-semibold text-gray-200 hover:text-neonBlue" x-text="item.label"></a>
+                </template>
+                <div class="h-px bg-white/10 my-2"></div>
+                <div class="flex items-center justify-between">
+                    <div class="flex gap-2">
+                        <button @click="selectLang('ar')" class="px-3 py-1 rounded bg-white/5 text-xs" :class="lang === 'ar' ? 'text-neonBlue border border-neonBlue/30' : 'text-gray-400'">AR</button>
+                        <button @click="selectLang('en')" class="px-3 py-1 rounded bg-white/5 text-xs" :class="lang === 'en' ? 'text-neonBlue border border-neonBlue/30' : 'text-gray-400'">EN</button>
+                        <button @click="selectLang('fr')" class="px-3 py-1 rounded bg-white/5 text-xs" :class="lang === 'fr' ? 'text-neonBlue border border-neonBlue/30' : 'text-gray-400'">FR</button>
+                    </div>
+                    <button @click="toggleAudio()" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center">
+                        <i class="fa-solid" :class="isAudioPlaying ? 'fa-volume-high text-neonBlue' : 'fa-volume-xmark text-gray-400'"></i>
+                    </button>
+                </div>
+                <a href="#contact" @click="mobileMenuOpen = false" class="w-full py-3 rounded-xl bg-gradient-to-r from-accentBlue to-neonBlue text-center text-white font-semibold text-sm">
+                    <span x-text="t.getStarted"></span>
+                </a>
+            </div>
+        </header>
 
-</nav>
+        <!-- MAIN CONTENT CONTAINER -->
+        <main class="flex-grow">
+            
+            <!-- ========================================== -->
+            <!-- 1. HERO SECTION -->
+            <!-- ========================================== -->
+            <section id="hero" class="relative pt-20 pb-32 md:pt-32 md:pb-48 px-6 overflow-hidden">
+                <div class="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    
+                    <div class="lg:col-span-7 flex flex-col items-start gap-6 text-left" :class="lang === 'ar' ? 'lg:text-right lg:items-start' : ''">
+                        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-semibold tracking-wide text-neonOrange">
+                            <span class="w-2 h-2 rounded-full bg-neonOrange animate-pulse"></span>
+                            <span x-text="t.heroBadge"></span>
+                        </div>
+                        
+                        <h1 class="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight text-white leading-tight">
+                            <span class="bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent" x-text="t.heroTitlePart1"></span>
+                            <span class="block bg-gradient-to-r from-neonBlue via-cyan-400 to-neonOrange bg-clip-text text-transparent drop-shadow-sm mt-1" x-text="t.heroTitlePart2"></span>
+                        </h1>
 
-</header>
-    <section class="language-screen">
+                        <p class="text-gray-400 text-base md:text-lg max-w-xl leading-relaxed font-light" x-text="t.heroDesc"></p>
 
-    <h2>Choose Your Language</h2>
+                        <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto pt-4">
+                            <a href="#contact" class="px-8 py-4 rounded-xl bg-gradient-to-r from-accentBlue to-neonBlue text-white font-bold text-sm tracking-wide text-center shadow-neonBlueGlow hover:shadow-[0_0_30px_rgba(0,242,254,0.5)] transform hover:-translate-y-1 transition-all duration-300">
+                                <span x-text="t.getStarted"></span>
+                            </a>
+                            <a href="#portfolio" class="px-8 py-4 rounded-xl bg-white/5 hover:bg-white/10 text-white font-bold text-sm tracking-wide text-center border border-white/10 hover:border-white/20 transform hover:-translate-y-1 transition-all duration-300">
+                                <span x-text="t.viewWork"></span>
+                            </a>
+                        </div>
+                    </div>
 
-    <p>Select your preferred language to begin your experience.</p>
+                    <!-- Hero Visual / Floating Object -->
+                    <div class="lg:col-span-5 flex justify-center relative mt-12 lg:mt-0">
+                        <div class="relative w-72 h-72 md:w-96 md:h-96 animate-float">
+                            <!-- Glow Rings -->
+                            <div class="absolute inset-0 rounded-full bg-gradient-to-tr from-neonBlue to-neonOrange opacity-20 blur-2xl animate-pulseGlow"></div>
+                            <div class="absolute -inset-4 rounded-full border border-neonBlue/10 animate-[spin_20s_linear_infinite]"></div>
+                            <div class="absolute -inset-10 rounded-full border border-dashed border-neonOrange/5 animate-[spin_35s_linear_infinite]"></div>
+                            
+                            <!-- Central Glass Orb -->
+                            <div class="absolute inset-4 rounded-full glass-panel flex items-center justify-center p-8 overflow-hidden">
+                                <div class="w-full h-full rounded-full bg-gradient-to-b from-white/5 to-transparent flex flex-col items-center justify-center relative">
+                                    <i class="fa-solid fa-laptop-code text-7xl text-neonBlue drop-shadow-[0_0_15px_rgba(0,242,254,0.4)]"></i>
+                                    <div class="absolute bottom-12 text-[10px] tracking-[0.4em] text-neonOrange font-black uppercase">PowerSite</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-    <div class="languages">
+            <!-- ========================================== -->
+            <!-- 2. ABOUT US SECTION -->
+            <!-- ========================================== -->
+            <section id="about" class="py-24 md:py-32 relative px-6">
+                <div class="max-w-7xl mx-auto px-6 md:px-12">
+                    <div class="text-center max-w-3xl mx-auto mb-20">
+                        <h2 class="text-xs uppercase tracking-[0.3em] text-neonBlue font-black mb-3" x-text="t.aboutUs"></h2>
+                        <h3 class="text-3xl md:text-4xl font-extrabold text-white" x-text="t.aboutHeadline"></h3>
+                        <div class="w-16 h-1 bg-gradient-to-r from-neonBlue to-neonOrange mx-auto mt-6 rounded"></div>
+                    </div>
 
-        <button>🇸🇦 العربية</button>
+                    <!-- Story & Mission/Vision -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
+                        <div class="space-y-6">
+                            <h4 class="text-2xl font-bold text-white" x-text="t.ourStoryTitle"></h4>
+                            <p class="text-gray-400 leading-relaxed font-light text-base" x-text="t.ourStoryDesc1"></p>
+                            <p class="text-gray-400 leading-relaxed font-light text-base" x-text="t.ourStoryDesc2"></p>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="p-6 rounded-2xl glass-card">
+                                <div class="w-12 h-12 rounded-xl bg-neonBlue/10 flex items-center justify-center text-neonBlue mb-4">
+                                    <i class="fa-solid fa-bullseye text-xl"></i>
+                                </div>
+                                <h5 class="text-lg font-bold text-white mb-2" x-text="t.missionTitle"></h5>
+                                <p class="text-gray-400 text-sm leading-relaxed" x-text="t.missionDesc"></p>
+                            </div>
+                            <div class="p-6 rounded-2xl glass-card">
+                                <div class="w-12 h-12 rounded-xl bg-neonOrange/10 flex items-center justify-center text-neonOrange mb-4">
+                                    <i class="fa-solid fa-eye text-xl"></i>
+                                </div>
+                                <h5 class="text-lg font-bold text-white mb-2" x-text="t.visionTitle"></h5>
+                                <p class="text-gray-400 text-sm leading-relaxed" x-text="t.visionDesc"></p>
+                            </div>
+                        </div>
+                    </div>
 
-        <button>🇬🇧 English</button>
+                    <!-- Core Values -->
+                    <div>
+                        <h4 class="text-xl font-bold text-white mb-8 text-center" x-text="t.coreValues"></h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                            <template x-for="value in coreValuesList">
+                                <div class="p-6 rounded-2xl glass-card text-center">
+                                    <div class="w-10 h-10 rounded-lg bg-white/5 mx-auto flex items-center justify-center text-neonBlue mb-4">
+                                        <i class="fa-solid" :class="value.icon"></i>
+                                    </div>
+                                    <h5 class="text-white font-semibold mb-2" x-text="value.title"></h5>
+                                    <p class="text-gray-400 text-xs leading-relaxed" x-text="value.desc"></p>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-        <button>🇫🇷 Français</button>
+            <!-- ========================================== -->
+            <!-- 3. SERVICES SECTION -->
+            <!-- ========================================== -->
+            <section id="services" class="py-24 md:py-32 relative px-6 bg-white/[0.01] border-y border-white/5">
+                <div class="max-w-7xl mx-auto px-6 md:px-12">
+                    <div class="text-center max-w-3xl mx-auto mb-20">
+                        <h2 class="text-xs uppercase tracking-[0.3em] text-neonOrange font-black mb-3" x-text="t.services"></h2>
+                        <h3 class="text-3xl md:text-4xl font-extrabold text-white" x-text="t.servicesHeadline"></h3>
+                        <div class="w-16 h-1 bg-gradient-to-r from-neonOrange to-neonBlue mx-auto mt-6 rounded"></div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <template x-for="svc in servicesList">
+                            <div class="p-8 rounded-2xl glass-card flex flex-col justify-between">
+                                <div>
+                                    <div class="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center text-neonBlue mb-6 border border-white/10 group-hover:border-neonBlue/30">
+                                        <i class="fa-solid text-2xl" :class="svc.icon"></i>
+                                    </div>
+                                    <h4 class="text-lg font-bold text-white mb-3" x-text="svc.title"></h4>
+                                    <p class="text-gray-400 text-xs leading-relaxed mb-6" x-text="svc.desc"></p>
+                                </div>
+                                <a href="#contact" class="inline-flex items-center gap-2 text-xs font-bold text-neonBlue hover:text-white transition-colors group">
+                                    <span x-text="t.learnMore"></span>
+                                    <i class="fa-solid fa-arrow-right text-[10px] transform group-hover:translate-x-1 transition-transform"></i>
+                                </a>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================================== -->
+            <!-- 4. PORTFOLIO SECTION -->
+            <!-- ========================================== -->
+            <section id="portfolio" class="py-24 md:py-32 relative px-6">
+                <div class="max-w-7xl mx-auto px-6 md:px-12">
+                    <div class="text-center max-w-3xl mx-auto mb-20">
+                        <h2 class="text-xs uppercase tracking-[0.3em] text-neonBlue font-black mb-3" x-text="t.portfolio"></h2>
+                        <h3 class="text-3xl md:text-4xl font-extrabold text-white" x-text="t.portfolioHeadline"></h3>
+                        <div class="w-16 h-1 bg-gradient-to-r from-neonBlue to-neonOrange mx-auto mt-6 rounded"></div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <template x-for="project in portfolioList">
+                            <div class="rounded-3xl overflow-hidden glass-card group flex flex-col">
+                                <!-- Project visual graphic placeholder -->
+                                <div class="h-56 relative bg-gradient-to-br from-indigo-950 to-slate-900 flex items-center justify-center p-6 border-b border-white/5 overflow-hidden">
+                                    <div class="absolute inset-0 bg-cover bg-center opacity-40 mix-blend-overlay group-hover:scale-110 transition-transform duration-500" :style="`background-image: url('${project.image}')`"></div>
+                                    <i class="fa-solid text-5xl text-white/20 group-hover:text-neonBlue/40 transition-colors" :class="project.icon"></i>
+                                </div>
+                                <div class="p-6 flex-grow flex flex-col justify-between">
+                                    <div>
+                                        <div class="flex items-center gap-2 text-[10px] text-neonOrange font-bold tracking-wider uppercase mb-2" x-text="project.category"></div>
+                                        <h4 class="text-xl font-bold text-white mb-2" x-text="project.title"></h4>
+                                        <p class="text-gray-400 text-xs leading-relaxed mb-6" x-text="project.desc"></p>
+                                    </div>
+                                    <a :href="project.link" class="inline-flex items-center justify-center w-full py-3 rounded-xl bg-white/5 hover:bg-gradient-to-r hover:from-accentBlue hover:to-neonBlue text-white text-xs font-semibold border border-white/10 hover:border-transparent transition-all">
+                                        <span x-text="t.viewDemo"></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================================== -->
+            <!-- 5. WHY CHOOSE POWERSITE (STATS) -->
+            <!-- ========================================== -->
+            <section id="why-us" class="py-24 md:py-32 relative px-6 bg-white/[0.01] border-y border-white/5">
+                <div class="max-w-7xl mx-auto px-6 md:px-12">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                        <div class="lg:col-span-5 space-y-6">
+                            <h2 class="text-xs uppercase tracking-[0.3em] text-neonOrange font-black" x-text="t.whyChooseUs"></h2>
+                            <h3 class="text-3xl md:text-4xl font-extrabold text-white" x-text="t.whyChooseHeadline"></h3>
+                            <p class="text-gray-400 font-light leading-relaxed text-base" x-text="t.whyChooseDesc"></p>
+                            
+                            <div class="space-y-4 pt-4">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-6 h-6 rounded-full bg-neonBlue/10 flex items-center justify-center text-neonBlue text-xs">
+                                        <i class="fa-solid fa-check"></i>
+                                    </div>
+                                    <span class="text-sm font-semibold text-gray-200" x-text="t.indicator1"></span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <div class="w-6 h-6 rounded-full bg-neonBlue/10 flex items-center justify-center text-neonBlue text-xs">
+                                        <i class="fa-solid fa-check"></i>
+                                    </div>
+                                    <span class="text-sm font-semibold text-gray-200" x-text="t.indicator2"></span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <div class="w-6 h-6 rounded-full bg-neonBlue/10 flex items-center justify-center text-neonBlue text-xs">
+                                        <i class="fa-solid fa-check"></i>
+                                    </div>
+                                    <span class="text-sm font-semibold text-gray-200" x-text="t.indicator3"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Statistics Counters -->
+                        <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <template x-for="stat in statsList">
+                                <div class="p-8 rounded-3xl glass-card text-center flex flex-col justify-center items-center relative overflow-hidden group">
+                                    <div class="absolute -right-4 -bottom-4 text-7xl text-white/[0.01] group-hover:text-white/[0.03] transition-colors">
+                                        <i class="fa-solid" :class="stat.icon"></i>
+                                    </div>
+                                    <div class="text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-neonBlue to-neonOrange mb-2" x-text="stat.value"></div>
+                                    <div class="text-sm font-semibold text-gray-300" x-text="stat.label"></div>
+                                    <div class="text-xs text-gray-500 mt-1" x-text="stat.sub"></div>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================================== -->
+            <!-- 6. TESTIMONIALS SECTION -->
+            <!-- ========================================== -->
+            <section id="testimonials" class="py-24 md:py-32 relative px-6">
+                <div class="max-w-7xl mx-auto px-6 md:px-12">
+                    <div class="text-center max-w-3xl mx-auto mb-20">
+                        <h2 class="text-xs uppercase tracking-[0.3em] text-neonBlue font-black mb-3" x-text="t.testimonials"></h2>
+                        <h3 class="text-3xl md:text-4xl font-extrabold text-white" x-text="t.testimonialsHeadline"></h3>
+                        <div class="w-16 h-1 bg-gradient-to-r from-neonBlue to-neonOrange mx-auto mt-6 rounded"></div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <template x-for="review in testimonialList">
+                            <div class="p-8 rounded-3xl glass-card flex flex-col justify-between relative">
+                                <div class="absolute top-6 right-8 text-4xl text-white/5"><i class="fa-solid fa-quote-right"></i></div>
+                                <div>
+                                    <div class="flex items-center gap-1 text-neonOrange mb-4 text-xs">
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                    </div>
+                                    <p class="text-gray-300 text-sm leading-relaxed italic mb-6" x-text="review.quote"></p>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 rounded-full bg-cover bg-center border-2 border-white/10" :style="`background-image: url('${review.image}')`"></div>
+                                    <div>
+                                        <h5 class="text-white text-sm font-bold" x-text="review.name"></h5>
+                                        <span class="text-gray-500 text-[10px] tracking-wide uppercase" x-text="review.title"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================================== -->
+            <!-- 7. CONTACT & MAP SECTION -->
+            <!-- ========================================== -->
+            <section id="contact" class="py-24 md:py-32 relative px-6 bg-white/[0.01] border-t border-white/5">
+                <div class="max-w-7xl mx-auto px-6 md:px-12">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                        
+                        <!-- Contact Info & Map -->
+                        <div class="lg:col-span-5 space-y-8">
+                            <div>
+                                <h2 class="text-xs uppercase tracking-[0.3em] text-neonBlue font-black mb-2" x-text="t.contactUs"></h2>
+                                <h3 class="text-3xl font-bold text-white" x-text="t.contactHeadline"></h3>
+                                <p class="text-gray-400 text-sm font-light mt-4" x-text="t.contactDesc"></p>
+                            </div>
+
+                            <div class="space-y-4">
+                                <div class="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/5">
+                                    <div class="w-10 h-10 rounded-lg bg-neonBlue/10 flex items-center justify-center text-neonBlue"><i class="fa-solid fa-envelope"></i></div>
+                                    <div>
+                                        <div class="text-[10px] text-gray-500 uppercase tracking-wide">Email</div>
+                                        <a href="mailto:info@powersite.com" class="text-sm font-medium text-white hover:text-neonBlue transition-colors">info@powersite.com</a>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/5">
+                                    <div class="w-10 h-10 rounded-lg bg-neonOrange/10 flex items-center justify-center text-neonOrange"><i class="fa-solid fa-phone"></i></div>
+                                    <div>
+                                        <div class="text-[10px] text-gray-500 uppercase tracking-wide">Phone</div>
+                                        <a href="tel:+1234567890" class="text-sm font-medium text-white hover:text-neonOrange transition-colors">+1 (234) 567-890</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Embedded Interactive Dark Maps Placeholder -->
+                            <div class="w-full h-64 rounded-2xl overflow-hidden border border-white/10 relative">
+                                <iframe class="absolute inset-0 w-full h-full grayscale invert contrast-[1.2] opacity-60" 
+                                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10000!2d-7.61!3d33.57!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzPCsDM0JzEyLjAiTiA3wrAzNiczNi4wIlc!5e0!3m2!1sen!2sma!4v1650000000000" 
+                                        style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            </div>
+                        </div>
+
+                        <!-- Professional Contact Form -->
+                        <div class="lg:col-span-7 p-8 rounded-3xl glass-panel relative">
+                            <form @submit.prevent="submitForm()" class="space-y-6">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                    <div>
+                                        <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2" x-text="t.formName"></label>
+                                        <input type="text" required class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-neonBlue focus:ring-1 focus:ring-neonBlue transition-all">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2" x-text="t.formEmail"></label>
+                                        <input type="email" required class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-neonBlue focus:ring-1 focus:ring-neonBlue transition-all">
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2" x-text="t.formPhone"></label>
+                                    <input type="tel" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-neonBlue focus:ring-1 focus:ring-neonBlue transition-all">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2" x-text="t.formMessage"></label>
+                                    <textarea rows="5" required class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-neonBlue focus:ring-1 focus:ring-neonBlue transition-all"></textarea>
+                                </div>
+                                <button type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-accentBlue to-neonBlue text-white font-bold text-sm tracking-wide shadow-neonBlueGlow hover:shadow-[0_0_25px_rgba(0,242,254,0.4)] transition-all">
+                                    <span x-text="t.formSubmit"></span>
+                                </button>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- ========================================== -->
+        <!-- 8. FOOTER SECTION -->
+        <!-- ========================================== -->
+        <footer class="bg-darkBg border-t border-white/5 pt-16 pb-12 px-6">
+            <div class="max-w-7xl mx-auto px-6 md:px-12">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                    
+                    <!-- Identity & Vision -->
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-accentBlue to-neonBlue flex items-center justify-center text-white font-bold text-sm">P</div>
+                            <span class="text-lg font-black text-white tracking-wider">Power<span class="text-neonBlue">Site</span></span>
+                        </div>
+                        <p class="text-gray-400 text-xs leading-relaxed font-light" x-text="t.footerDesc"></p>
+                    </div>
+
+                    <!-- Services Directory -->
+                    <div>
+                        <h4 class="text-xs uppercase tracking-wider text-white font-black mb-4">Services</h4>
+                        <ul class="space-y-2 text-xs text-gray-400">
+                            <li><a href="#services" class="hover:text-neonBlue">Corporate Web Presence</a></li>
+                            <li><a href="#services" class="hover:text-neonBlue">Premium E-Commerce Engines</a></li>
+                            <li><a href="#services" class="hover:text-neonBlue">Artistic Portfolios</a></li>
+                            <li><a href="#services" class="hover:text-neonBlue">AI Integrations</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Fast Links Navigation -->
+                    <div>
+                        <h4 class="text-xs uppercase tracking-wider text-white font-black mb-4">Quick Links</h4>
+                        <ul class="space-y-2 text-xs text-gray-400">
+                            <li><a href="#hero" class="hover:text-neonBlue" x-text="t.aboutUs"></a></li>
+                            <li><a href="#about" class="hover:text-neonBlue" x-text="t.aboutHeadline"></a></li>
+                            <li><a href="#portfolio" class="hover:text-neonBlue" x-text="t.portfolio"></a></li>
+                            <li><a href="#contact" class="hover:text-neonBlue" x-text="t.contactUs"></a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Social Networks -->
+                    <div>
+                        <h4 class="text-xs uppercase tracking-wider text-white font-black mb-4">Join Us</h4>
+                        <!-- Grid Social Links -->
+                        <div class="grid grid-cols-4 gap-3">
+                            <a href="#" class="w-10 h-10 rounded-xl bg-white/5 hover:bg-neonBlue/10 text-white hover:text-neonBlue flex items-center justify-center border border-white/10 hover:border-neonBlue/30 transition-all"><i class="fa-brands fa-whatsapp"></i></a>
+                            <a href="#" class="w-10 h-10 rounded-xl bg-white/5 hover:bg-neonBlue/10 text-white hover:text-neonBlue flex items-center justify-center border border-white/10 hover:border-neonBlue/30 transition-all"><i class="fa-brands fa-facebook"></i></a>
+                            <a href="#" class="w-10 h-10 rounded-xl bg-white/5 hover:bg-neonBlue/10 text-white hover:text-neonBlue flex items-center justify-center border border-white/10 hover:border-neonBlue/30 transition-all"><i class="fa-brands fa-instagram"></i></a>
+                            <a href="#" class="w-10 h-10 rounded-xl bg-white/5 hover:bg-neonBlue/10 text-white hover:text-neonBlue flex items-center justify-center border border-white/10 hover:border-neonBlue/30 transition-all"><i class="fa-brands fa-linkedin-in"></i></a>
+                            <a href="#" class="w-10 h-10 rounded-xl bg-white/5 hover:bg-neonBlue/10 text-white hover:text-neonBlue flex items-center justify-center border border-white/10 hover:border-neonBlue/30 transition-all"><i class="fa-brands fa-tiktok"></i></a>
+                            <a href="#" class="w-10 h-10 rounded-xl bg-white/5 hover:bg-neonBlue/10 text-white hover:text-neonBlue flex items-center justify-center border border-white/10 hover:border-neonBlue/30 transition-all"><i class="fa-brands fa-youtube"></i></a>
+                            <a href="#" class="w-10 h-10 rounded-xl bg-white/5 hover:bg-neonBlue/10 text-white hover:text-neonBlue flex items-center justify-center border border-white/10 hover:border-neonBlue/30 transition-all"><i class="fa-brands fa-x-twitter"></i></a>
+                            <a href="mailto:info@powersite.com" class="w-10 h-10 rounded-xl bg-white/5 hover:bg-neonBlue/10 text-white hover:text-neonBlue flex items-center justify-center border border-white/10 hover:border-neonBlue/30 transition-all"><i class="fa-solid fa-envelope"></i></a>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="h-px bg-white/5 mb-8"></div>
+
+                <!-- Copyright Signature & Details -->
+                <div class="flex flex-col md:flex-row items-center justify-between text-[11px] text-gray-500 gap-4">
+                    <span>&copy; 2026 PowerSite. All rights reserved. Slogan: CODE • CONNECT • EMPOWER.</span>
+                    <div class="flex gap-4">
+                        <a href="#" class="hover:text-white">Privacy Policy</a>
+                        <a href="#" class="hover:text-white">Terms of Use</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
 
     </div>
 
-</section>
-
-<section class="hero">
-
-<h1>Build Powerful Experiences</h1>
-
-<p>
-
-Welcome to PowerSite.
-
-We design modern websites that combine speed,
-simplicity, elegant design and smart interaction.
-
-</p>
-
-<button>
-
-Explore Our Work
-
-</button>
-
-</section>
-    <section class="about">
-
-<h2>Who We Are</h2>
-
-<p>
-
-PowerSite is a digital studio dedicated to creating modern websites that combine speed, elegant design, smart interaction and exceptional user experience.
-
-We don't just build websites.
-
-We build digital experiences that leave a lasting impression.
-
-</p>
-
-</section>
+    <!-- ========================================== -->
+    <!-- ALPINE APPLICATION STATE SYSTEM -->
+    <!-- ========================================== -->
     <script>
+        function agencyApp() {
+            return {
+                showGateway: true,
+                lang: 'en',
+                scrolled: false,
+                mobileMenuOpen: false,
+                isAudioPlaying: false,
+                
+                // Multilingual Audio Assets
+                audioUrls: {
+                    ar: 'https://files.catbox.moe/puq7wf.mp3',
+                    en: 'https://files.catbox.moe/5l9vfj.mp3',
+                    fr: 'https://files.catbox.moe/9nzzs0.mp3'
+                },
 
-const buttons = document.querySelectorAll(".languages button");
+                // Active Localization Key-Value Store
+                t: {},
 
-buttons[0].addEventListener("click",function(){
+                // Initialization routine
+                init() {
+                    window.addEventListener('scroll', () => {
+                        this.scrolled = window.scrollY > 50;
+                    });
+                    this.updateTranslation();
+                },
 
-let audio = new Audio("audio/welcome-ar.mp3");
+                // Choose UI Language & Play Voice Note
+                selectLang(selected) {
+                    this.lang = selected;
+                    this.updateTranslation();
+                    this.showGateway = false;
+                    this.isAudioPlaying = true;
+                    
+                    // Native HTML5 Audio play routine
+                    const player = document.getElementById('audioPlayer');
+                    player.src = this.audioUrls[selected];
+                    player.load();
+                    player.play()
+                        .then(() => {
+                            this.isAudioPlaying = true;
+                        })
+                        .catch(err => {
+                            console.log("Auto-play policy blocked immediate playback: ", err);
+                            this.isAudioPlaying = false;
+                        });
 
-audio.play();
+                    player.onended = () => {
+                        this.isAudioPlaying = false;
+                    };
+                },
 
-});
+                // Manual play-pause toggle control
+                toggleAudio() {
+                    const player = document.getElementById('audioPlayer');
+                    if (this.isAudioPlaying) {
+                        player.pause();
+                        this.isAudioPlaying = false;
+                    } else {
+                        player.play();
+                        this.isAudioPlaying = true;
+                    }
+                },
 
-buttons[1].addEventListener("click",function(){
+                submitForm() {
+                    alert(this.lang === 'ar' ? 'تم استلام رسالتك بنجاح! سنتواصل معك قريباً.' : 
+                          (this.lang === 'fr' ? 'Message reçu avec succès! Nous vous contacterons bientôt.' : 
+                          'Message received successfully! We will contact you shortly.'));
+                },
 
-let audio = new Audio("audio/welcome-en.mp3");
+                // Computed Active Navigation Items
+                get menuItems() {
+                    return [
+                        { label: this.t.navHome, link: '#hero' },
+                        { label: this.t.navAbout, link: '#about' },
+                        { label: this.t.navServices, link: '#services' },
+                        { label: this.t.navPortfolio, link: '#portfolio' },
+                        { label: this.t.navContact, link: '#contact' }
+                    ];
+                },
 
-audio.play();
+                // Unified Core Values Translation List
+                get coreValuesList() {
+                    return [
+                        { icon: 'fa-cubes', title: this.t.val1Title, desc: this.t.val1Desc },
+                        { icon: 'fa-shield-halved', title: this.t.val2Title, desc: this.t.val2Desc },
+                        { icon: 'fa-bolt', title: this.t.val3Title, desc: this.t.val3Desc },
+                        { icon: 'fa-handshake', title: this.t.val4Title, desc: this.t.val4Desc }
+                    ];
+                },
 
-});
+                // Computed Services
+                get servicesList() {
+                    return [
+                        { icon: 'fa-layer-group', title: this.t.svc1Title, desc: this.t.svc1Desc },
+                        { icon: 'fa-store', title: this.t.svc2Title, desc: this.t.svc2Desc },
+                        { icon: 'fa-lightbulb', title: this.t.svc3Title, desc: this.t.svc3Desc },
+                        { icon: 'fa-magnifying-glass-chart', title: this.t.svc4Title, desc: this.t.svc4Desc }
+                    ];
+                },
 
-buttons[2].addEventListener("click",function(){
+                // Clean Portfolio Elements with Modern Background Images
+                get portfolioList() {
+                    return [
+                        { 
+                            title: this.t.proj1Title, 
+                            desc: this.t.proj1Desc, 
+                            category: this.t.projCat1, 
+                            icon: 'fa-wallet',
+                            image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600&auto=format&fit=crop',
+                            link: '#' 
+                        },
+                        { 
+                            title: this.t.proj2Title, 
+                            desc: this.t.proj2Desc, 
+                            category: this.t.projCat2, 
+                            icon: 'fa-chart-line',
+                            image: 'https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?q=80&w=600&auto=format&fit=crop',
+                            link: '#' 
+                        },
+                        { 
+                            title: this.t.proj3Title, 
+                            desc: this.t.proj3Desc, 
+                            category: this.t.projCat3, 
+                            icon: 'fa-brain',
+                            image: 'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=600&auto=format&fit=crop',
+                            link: '#' 
+                        }
+                    ];
+                },
 
-let audio = new Audio("audio/welcome-fr.mp3");
+                // Computed Stat System Data
+                get statsList() {
+                    return [
+                        { value: '150+', label: this.t.statProjects, sub: this.t.statProjectsSub, icon: 'fa-code-branch' },
+                        { value: '99%', label: this.t.statSatisfaction, sub: this.t.statSatisfactionSub, icon: 'fa-face-smile' },
+                        { value: '24/7', label: this.t.statSupport, sub: this.t.statSupportSub, icon: 'fa-headset' },
+                        { value: '10x', label: this.t.statPerformance, sub: this.t.statPerformanceSub, icon: 'fa-bolt' }
+                    ];
+                },
 
-audio.play();
+                // Testimonials List
+                get testimonialList() {
+                    return [
+                        { name: 'Sarah Jenkins', title: 'CEO, VentureSoft', quote: this.t.quote1, image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=150&auto=format&fit=crop' },
+                        { name: 'Amine Benslimane', title: 'Director, Zenith FinTech', quote: this.t.quote2, image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=150&auto=format&fit=crop' },
+                        { name: 'Pierre Moreau', title: 'Founder, L’Atelier', quote: this.t.quote3, image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=150&auto=format&fit=crop' }
+                    ];
+                },
 
-});
+                // Translation Master Dictionary
+                updateTranslation() {
+                    const dict = {
+                        en: {
+                            navHome: 'Home',
+                            navAbout: 'About',
+                            navServices: 'Services',
+                            navPortfolio: 'Portfolio',
+                            navContact: 'Contact',
+                            getStarted: 'Get Started',
+                            viewWork: 'Explore Work',
+                            learnMore: 'Read More',
+                            
+                            heroBadge: 'Tomorrow’s Web Experiences, Built Today',
+                            heroTitlePart1: 'We Engineer Luxury',
+                            heroTitlePart2: 'Digital Masterpieces',
+                            heroDesc: 'PowerSite is a premier digital design agency. We formulate elite web applications, integrate deep machine learning, and craft aesthetic UI layouts that captivate and convert.',
+                            
+                            aboutUs: 'About Us',
+                            aboutHeadline: 'The Powerhouse of Architecture & Art',
+                            ourStoryTitle: 'Our Story',
+                            ourStoryDesc1: 'Founded at the intersection of sophisticated architecture and next-generation design systems, PowerSite works exclusively with forward-looking enterprises to conceptualize, design, and host state-of-the-art web products.',
+                            ourStoryDesc2: 'We reject generic components. Every layout is engineered from the ground up to achieve 100% Core Web Vitals performance and provide interactive micro-animations that represent absolute prestige.',
+                            missionTitle: 'Our Mission',
+                            missionDesc: 'To engineer elite web experiences that empower businesses to scale securely with unparalleled digital elegance.',
+                            visionTitle: 'Our Vision',
+                            visionDesc: 'To dominate the next frontier of web evolution by seamlessly merging artificial intelligence with ultra-luxury UI/UX design.',
+                            coreValues: 'Core Pillars of Excellence',
+                            val1Title: 'High-Fidelity Code', val1Desc: 'Optimized layouts, zero bloat, and peak responsive metrics.',
+                            val2Title: 'Fortified Security', val2Desc: 'Highly resilient systems leveraging serverless execution models.',
+                            val3Title: 'Aesthetic Purity', val3Desc: 'Premium layouts characterized by clean geometry and glassmorphic designs.',
+                            val4Title: 'Seamless Connectivity', val4Desc: 'Fast, secure APIs bridging information across all user platforms.',
 
-</script>
+                            services: 'Services',
+                            servicesHeadline: 'Cutting-Edge Capabilities',
+                            svc1Title: 'Enterprise Platforms', svc1Desc: 'High-fidelity bespoke responsive software engineered for critical workflows and operations.',
+                            svc2Title: 'Global E-Commerce', svc2Desc: 'Engineered storefront solutions built with blazing-fast transaction processing pipelines.',
+                            svc3Title: 'AI Core Integration', svc3Desc: 'We introduce robust language processing models and AI tools natively to your web product.',
+                            svc4Title: 'Advanced SEO Architecture', svc4Desc: 'Advanced technical optimizations ensuring maximum organic visibility.',
 
+                            portfolio: 'Portfolio',
+                            portfolioHeadline: 'Case Studies in Absolute Craftsmanship',
+                            viewDemo: 'Explore Live Project',
+                            projCat1: 'DeFi & Fintech', proj1Title: 'Aether Capital', proj1Desc: 'A glassmorphic decentralized dashboard and portfolio optimizer with fast reactive animations.',
+                            projCat2: 'Luxury Retail', proj2Title: 'Velas & Co.', proj2Desc: 'Ultra-minimalist web flagship designed with premium layouts and immersive micro-animations.',
+                            projCat3: 'Saas Products', proj3Title: 'Chronos AI', proj3Desc: 'A high-performance command panel built with real-time graph visualizations and generative features.',
+
+                            whyChooseUs: 'Why PowerSite',
+                            whyChooseHeadline: 'Engineered to Outperform the Standard',
+                            whyChooseDesc: 'We do not compromise. Standard websites look uniform and run slowly. We deliver highly customized assets designed to outlast, outperform, and instantly capture brand loyalty.',
+                            indicator1: 'Ultra-fast visual execution',
+                            indicator2: 'Intuitive modern accessibility',
+                            indicator3: 'Tailored luxury micro-interactions',
+                            statProjects: 'Projects Executed', statProjectsSub: 'Bespoke software systems',
+                            statSatisfaction: 'Satisfaction Rate', statSatisfactionSub: 'Trusted by worldwide brands',
+                            statSupport: 'Global Assistance', statSupportSub: 'On-demand technical care',
+                            statPerformance: 'Load Speed Velocity', statPerformanceSub: 'Engineered for instant load times',
+
+                            testimonials: 'Testimonials',
+                            testimonialsHeadline: 'Acolytes of Our System',
+                            quote1: '"PowerSite re-imagined our entire global presence. The layout load speeds are spectacular, and our conversion targets increased instantly by 45%."',
+                            quote2: '"The AI integration was executed with pristine precision. Our clients love the smooth micro-animations and intuitive layout structure."',
+                            quote3: '"Working with this agency is a masterclass in modern digital luxury. Highly structured communication, incredible execution, and clean code."',
+
+                            contactUs: 'Contact Us',
+                            contactHeadline: 'Begin Your Digital Evolution',
+                            contactDesc: 'Have an upcoming premium project? Contact our design office. Our lead engineers will response within 12 hours.',
+                            formName: 'Full Name',
+                            formEmail: 'Email Address',
+                            formPhone: 'Phone (Optional)',
+                            formMessage: 'Project Description',
+                            formSubmit: 'Initialize Project Consultation',
+                            footerDesc: 'Specialized luxury web systems engineered to empower global enterprises.'
+                        },
+                        ar: {
+                            navHome: 'الرئيسية',
+                            navAbout: 'من نحن',
+                            navServices: 'خدماتنا',
+                            navPortfolio: 'أعمالنا',
+                            navContact: 'اتصل بنا',
+                            getStarted: 'ابدأ الآن',
+                            viewWork: 'عرض الأعمال',
+                            learnMore: 'اقرأ المزيد',
+                            
+                            heroBadge: 'تصميم تجارب الغد الرقمية اليوم',
+                            heroTitlePart1: 'نهندس منصات رقمية',
+                            heroTitlePart2: 'فائقة الفخامة والأداء',
+                            heroDesc: 'باورسايت هي وكالة تصميم وتطوير رقمي رائدة. نحن نخلق تطبيقات ويب مخصصة رفيعة المستوى، ندمج تقنيات الذكاء الاصطناعي، ونصمم واجهات تفاعلية ساحرة تلهم عملاءك.',
+                            
+                            aboutUs: 'من نحن',
+                            aboutHeadline: 'الملتقى الإبداعي للهندسة البرمجية والفن',
+                            ourStoryTitle: 'قصتنا',
+                            ourStoryDesc1: 'تأسست شركة باورسايت لتجمع بين الفن المعماري الرقمي والتطوير البرمجي فائق السرعة، ونعمل خصيصاً مع الشركات والمؤسسات الطموحة التي تسعى للتميز والريادة.',
+                            ourStoryDesc2: 'نحن نرفض القوالب الجاهزة والمكررة. كل سطر برمجي نكتبه مصمم لضمان سرعة فائقة وتوفير حركات تفاعلية مدهشة تليق بمكانة علامتك التجارية وتمنحها الفخامة التي تستحقها.',
+                            missionTitle: 'رسالتنا',
+                            missionDesc: 'ابتكار تجارب ويب نخبوية تمكن الشركات من النمو والانتشار بأمان تام وبلمسات فنية فاخرة لا مثيل لها.',
+                            visionTitle: 'رؤيتنا',
+                            visionDesc: 'أن نكون الخيار الأول عالمياً في ريادة وتطوير الويب فائق الفخامة عبر دمج الذكاء الاصطناعي مع الواجهات الإبداعية.',
+                            coreValues: 'القيم والركائز الأساسية',
+                            val1Title: 'أكواد برمجية عالية الدقة', val1Desc: 'منصات سريعة وخفيفة بالكامل خالية من التعقيد.',
+                            val2Title: 'أمان فائق ومتكامل', val2Desc: 'أنظمة برمجية مرنة ومحصنة بأحدث الحلول السحابية.',
+                            val3Title: 'نقاء وتناسق بصري', val3Desc: 'تصاميم زجاجية فاخرة وجماليات هندسية متناسقة.',
+                            val4Title: 'ترابط برمي سلس', val4Desc: 'واجهات ربط برمجية فائقة السرعة تربط بياناتك بكفاءة.',
+
+                            services: 'خدماتنا',
+                            servicesHeadline: 'قدرات تقنية بلا حدود',
+                            svc1Title: 'منصات الشركات الكبرى', svc1Desc: 'تطوير منصات ويب مخصصة بالكامل تخدم عمليات ومشاريع الشركات بدقة.',
+                            svc2Title: 'متاجر إلكترونية فاخرة', svc2Desc: 'حلول تجارة إلكترونية متكاملة تضمن تجربة تسوق سريعة وآمنة.',
+                            svc3Title: 'دمج أنظمة الذكاء الاصطناعي', svc3Desc: 'بناء وبرمجة أدوات الذكاء الاصطناعي المتقدمة داخل موقعك مباشرة.',
+                            svc4Title: 'هندسة الـ SEO المتقدمة', svc4Desc: 'تحسين تقني شامل لضمان ظهور موقعك في صدارة نتائج البحث العالمية.',
+
+                            portfolio: 'أعمالنا',
+                            portfolioHeadline: 'مشاريع تجسد الدقة والاحترافية والابتكار',
+                            viewDemo: 'استعرض المشروع',
+                            projCat1: 'التكنولوجيا المالية', proj1Title: 'لوحة التحكم إيثر', proj1Desc: 'لوحة تحكم تفاعلية متطورة لإدارة المحافظ المالية بأسلوب زجاجي متطور وحركات سريعة.',
+                            projCat2: 'مبيعات التجزئة الفاخرة', proj2Title: 'فيلاس وشركائه', proj2Desc: 'متجر إلكتروني فخم يتميز بتصميم هادئ وحركات دقيقة للغاية تأسر زوار الموقع.',
+                            projCat3: 'منصات السحاب الذكية', proj3Title: 'كرونوس للذكاء الاصطناعي', proj3Desc: 'واجهة متقدمة لعرض البيانات والتحليلات الفورية مع أدوات ذكاء اصطناعي تفاعلية.',
+
+                            whyChooseUs: 'لماذا باورسايت',
+                            whyChooseHeadline: 'مصممون للتفوق على المقاييس التقليدية',
+                            whyChooseDesc: 'المواقع التقليدية تبدو متشابهة وبطيئة الاستجابة. نحن نقدم أصولاً رقمية مصممة خصيصاً لتفوق كل التوقعات، تسرع من أداء عملك، وتجذب عملاءك من اللحظة الأولى.',
+                            indicator1: 'تنفيذ بصري فائق السرعة والأداء',
+                            indicator2: 'وصول مرن وسهل على كل الشاشات',
+                            indicator3: 'تفاصيل تفاعلية دقيقة مخصصة لعلامتك',
+                            statProjects: 'مشاريع منجزة', statProjectsSub: 'أنظمة ومواقع مخصصة',
+                            statSatisfaction: 'نسبة الرضا والنجاح', statSatisfactionSub: 'شراكات ناجحة عالمياً',
+                            statSupport: 'دعم فني مستمر', statSupportSub: 'متابعة تقنية على مدار الساعة',
+                            statPerformance: 'سرعة التحميل والاستجابة', statPerformanceSub: 'مواقع مهيأة للعمل بلحظات',
+
+                            testimonials: 'آراء عملائنا',
+                            testimonialsHeadline: 'شركاء النجاح يتحدثون عن تجربتهم',
+                            quote1: '"أعادت باورسايت صياغة حضورنا الرقمي بالكامل. سرعة الموقع مذهلة وارتفعت نسبة المبيعات لدينا بأكثر من 45% فور الإطلاق."',
+                            quote2: '"تم دمج الذكاء الاصطناعي بدقة متناهية. نالت الحركات التفاعلية السلسة إعجاب عملائنا بشكل لا يصدق."',
+                            quote3: '"العمل مع هذه الوكالة يمثل الفخامة الرقمية الحقيقية. دقة متناهية في المواعيد، تنفيذ رائع، وكود برمجي في غاية النقاء."',
+
+                            contactUs: 'اتصل بنا',
+                            contactHeadline: 'ابدأ ثورتك الرقمية الآن',
+                            contactDesc: 'هل لديك مشروع متميز ترغب في تنفيذه؟ تواصل مع مهندسينا الآن. سنرد عليك في غضون 12 ساعة فقط.',
+                            formName: 'الاسم الكامل',
+                            formEmail: 'البريد الإلكتروني',
+                            formPhone: 'رقم الهاتف (اختياري)',
+                            formMessage: 'تفاصيل المشروع',
+                            formSubmit: 'ابدأ استشارتك التقنية الآن',
+                            footerDesc: 'أنظمة ومواقع ويب فاخرة مصممة خصيصاً لتمكين كبرى الشركات العالمية.'
+                        },
+                        fr: {
+                            navHome: 'Accueil',
+                            navAbout: 'À Propos',
+                            navServices: 'Services',
+                            navPortfolio: 'Portfolio',
+                            navContact: 'Contact',
+                            getStarted: 'Commencer',
+                            viewWork: 'Explorer',
+                            learnMore: 'Savoir Plus',
+                            
+                            heroBadge: 'L\'excellence numérique d\'aujourd\'hui',
+                            heroTitlePart1: 'Nous Créons le Luxe',
+                            heroTitlePart2: 'Digital sur Mesure',
+                            heroDesc: 'PowerSite est une agence de design digital de premier plan. Nous concevons des applications web haut de gamme, intégrons l\'IA, et façonnons des interfaces d\'un prestige absolu.',
+                            
+                            aboutUs: 'À Propos',
+                            aboutHeadline: 'L\'alliance parfaite du code et de l\'art',
+                            ourStoryTitle: 'Notre Histoire',
+                            ourStoryDesc1: 'Fondée à l\'intersection d\'une architecture logicielle rigoureuse et de designs futuristes, PowerSite collabore exclusivement avec des marques désireuses de se démarquer avec élégance.',
+                            ourStoryDesc2: 'Nous refusons la médiocrité des templates préconçus. Chaque ligne de code est écrite sur mesure pour offrir des performances maximales et des micro-animations captivantes.',
+                            missionTitle: 'Notre Mission',
+                            missionDesc: 'Concevoir des solutions web d\'élite qui permettent aux entreprises de se développer sereinement avec une élégance numérique inégalée.',
+                            visionTitle: 'Notre Vision',
+                            visionDesc: 'Dominer l\'avenir du web en fusionnant parfaitement l\'intelligence artificielle avec le design UX/UI ultra-luxe.',
+                            coreValues: 'Nos Piliers Fondamentaux',
+                            val1Title: 'Code Haute Fidélité', val1Desc: 'Des architectures optimisées, rapides, fluides et légères.',
+                            val2Title: 'Sécurité Maximale', val2Desc: 'Des systèmes d\'une résilience extrême face aux menaces.',
+                            val3Title: 'Esthétique Épurée', val3Desc: 'Des visuels premium caractérisés par un design épuré et moderne.',
+                            val4Title: 'Connectivité Sûre', val4Desc: 'Des APIs rapides reliant vos applications instantanément.',
+
+                            services: 'Services',
+                            servicesHeadline: 'Des Performances d\'Avant-Garde',
+                            svc1Title: 'Plateformes d\'Entreprise', svc1Desc: 'Des logiciels sur mesure de haute performance adaptés à vos processus critiques.',
+                            svc2Title: 'E-Commerce de Prestige', svc2Desc: 'Des boutiques en ligne fluides conçues pour optimiser l\'expérience d\'achat de luxe.',
+                            svc3Title: 'Intégration d\'IA', svc3Desc: 'Nous connectons directement des modèles d\'intelligence artificielle à votre interface.',
+                            svc4Title: 'Optimisation SEO Avancée', svc4Desc: 'Une structure technique solide garantissant un excellent positionnement organique.',
+
+                            portfolio: 'Portfolio',
+                            portfolioHeadline: 'L\'Art du Détail et de l\'Exécution',
+                            viewDemo: 'Découvrir le Projet',
+                            projCat1: 'FinTech & DeFi', proj1Title: 'Aether Capital', proj1Desc: 'Un tableau de bord décentralisé élégant avec des micro-animations ultra-fluides.',
+                            projCat2: 'Commerce de Luxe', proj2Title: 'Velas & Co.', proj2Desc: 'Boutique en ligne minimaliste au design raffiné, offrant un parcours utilisateur d\'une clarté absolue.',
+                            projCat3: 'SaaS Intelligent', proj3Title: 'Chronos AI', proj3Desc: 'Un panneau d\'administration complexe gérant des visualisations de données de pointe en temps réel.',
+
+                            whyChooseUs: 'Pourquoi PowerSite',
+                            whyChooseHeadline: 'Une Ingénierie Pensée pour Surpasser',
+                            whyChooseDesc: 'Nous ne faisons aucun compromis. Nous développons des actifs sur mesure faits pour durer, captiver votre audience et renforcer l\'image de votre marque dès les premières secondes.',
+                            indicator1: 'Chargement visuel ultra-rapide',
+                            indicator2: 'Accessibilité moderne et intuitive',
+                            indicator3: 'Micro-interactions de luxe personnalisées',
+                            statProjects: 'Projets Réalisés', statProjectsSub: 'Logiciels et sites sur mesure',
+                            statSatisfaction: 'Taux de Satisfaction', statSatisfactionSub: 'Approuvé par des leaders',
+                            statSupport: 'Assistance Continue', statSupportSub: 'Disponibilité technique garantie',
+                            statPerformance: 'Vitesse de Chargement', statPerformanceSub: 'Optimisé pour une réactivité immédiate',
+
+                            testimonials: 'Témoignages',
+                            testimonialsHeadline: 'Ce qu\'ils Disent de Nous',
+                            quote1: '"PowerSite a transformé notre image de marque mondiale. La vitesse de chargement est incroyable et nos conversions ont grimpé de 45%."',
+                            quote2: '"L\'intégration de l\'IA a été réalisée avec une précision chirurgicale. Nos clients adorent la fluidité globale du site."',
+                            quote3: '"Une véritable expérience de luxe digital. Une communication structurée, une exécution rapide et un code d\'une propreté rare."',
+
+                            contactUs: 'Contactez-Nous',
+                            contactHeadline: 'Commencez Votre Révolution Digitale',
+                            contactDesc: 'Vous avez un projet haut de gamme en tête ? Contactez-nous. Nos ingénieurs vous répondront sous 12 heures.',
+                            formName: 'Nom Complet',
+                            formEmail: 'Adresse Email',
+                            formPhone: 'Téléphone (Optionnel)',
+                            formMessage: 'Description du Projet',
+                            formSubmit: 'Lancer l\'Analyse du Projet',
+                            footerDesc: 'Conception de solutions web de luxe pour propulser les entreprises mondiales.'
+                        }
+                    };
+                    
+                    this.t = dict[this.lang];
+                }
+            };
+        }
+    </script>
 </body>
-
 </html>
